@@ -287,22 +287,33 @@
         target="_blank" rel="noopener" class="inline-block border border-white/40 rounded-full px-6 py-3 text-sm hover:bg-white/10">Get Directions &rarr;</a>
     </div>
     <div class="bg-white text-black rounded-xl p-7">
-      <form name="contact" method="POST" data-netlify="true" class="space-y-4">
-        <input type="hidden" name="form-name" value="contact" />
+      <form id="contact-form" class="space-y-4" onsubmit="return ppfMailtoSubmit(event)">
         <div>
           <label class="block text-sm font-semibold mb-1">Name</label>
-          <input type="text" name="name" required class="w-full border border-gray-300 rounded-lg px-3 py-2">
+          <input type="text" id="cf-name" required class="w-full border border-gray-300 rounded-lg px-3 py-2">
         </div>
         <div>
           <label class="block text-sm font-semibold mb-1">Phone</label>
-          <input type="tel" name="phone" required class="w-full border border-gray-300 rounded-lg px-3 py-2">
+          <input type="tel" id="cf-phone" required class="w-full border border-gray-300 rounded-lg px-3 py-2">
         </div>
         <div>
           <label class="block text-sm font-semibold mb-1">Vehicle / What you need</label>
-          <textarea name="message" rows="3" class="w-full border border-gray-300 rounded-lg px-3 py-2"></textarea>
+          <textarea id="cf-message" rows="3" class="w-full border border-gray-300 rounded-lg px-3 py-2"></textarea>
         </div>
         <button type="submit" class="w-full bg-[var(--c-gold)] text-black font-semibold py-3 rounded-lg hover:opacity-90">Request Quote</button>
       </form>
+      <script>
+        function ppfMailtoSubmit(e){
+          e.preventDefault();
+          var name = document.getElementById('cf-name').value;
+          var phone = document.getElementById('cf-phone').value;
+          var message = document.getElementById('cf-message').value;
+          var subject = encodeURIComponent('Quote Request from ' + name);
+          var body = encodeURIComponent('Name: ' + name + '\nPhone: ' + phone + '\nVehicle / What they need: ' + message);
+          window.location.href = 'mailto:doctordetailingatl@gmail.com?subject=' + subject + '&body=' + body;
+          return false;
+        }
+      </script>
     </div>
   </div>
 </section>
